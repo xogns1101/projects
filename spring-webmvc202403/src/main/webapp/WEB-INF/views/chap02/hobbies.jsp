@@ -17,11 +17,11 @@
          </c:forEach>
     </ol>
 
-       <ul>
-            <c:forEach var="h" items="${hobbies}" varStatus="status">
-                <li>${status.count} ${h}</li>
-             </c:forEach>
-       </ul>
+   <ul>
+        <c:forEach var="h" items="${hobbies}" varStatus="status">
+            <li>${status.count} ${h}</li>
+         </c:forEach>
+   </ul>
 
 
     
