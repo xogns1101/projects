@@ -9,3 +9,10 @@
 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
 ```
 
+- appliocation.properties 파일에 추가 
+```
+#jsp view resolver setting
+spring.mvc.view.prefix=/WEB-INF/views/
+spring.mvc.view.suffix=.jsp
+```
+
