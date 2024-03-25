@@ -15,8 +15,9 @@
     <script>
 
     const msg = '${result}'; // 문자열로 el을 사용해서 변수에 할당 가능
-    if(msg != null){
+    if(msg !== null){
         alert(msg);
+
     </script>
 
 </body>
