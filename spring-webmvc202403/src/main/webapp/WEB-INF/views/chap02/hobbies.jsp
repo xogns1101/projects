@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-     <%--
+
     <h1>${userName}님 취미 목록</h1>
 
     <ol>
@@ -24,7 +24,7 @@
             <li>${status.count} ${h}</li>
          </c:forEach>
    </ul>
-     --%>
+
  <%-- ------------------------------------------------------------------------------------------ --%>
 <%--
  <div>
@@ -89,7 +89,7 @@
         </table>
     </div>
 --%>
-
+<%--
  <div>
         <h1>후보자 득표율</h1>
         <table class="table text-center">
@@ -111,7 +111,7 @@
             </tbody>
         </table>
     </div>
-
+--%>
 
 
 

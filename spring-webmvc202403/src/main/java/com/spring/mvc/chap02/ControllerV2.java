@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 
@@ -97,21 +98,41 @@ public class ControllerV2 {
 //    }
 
 
-    @GetMapping("hobbies")
-    public String candidatesList(Model model){
+//    @GetMapping("hobbies")
+//    public String candidatesList(Model model){
+//
+//        List<Integer> candidates = new ArrayList<>();
+//        candidates.add(263001);
+//        candidates.add(173942);
+//        candidates.add(563057);
+//
+//        model.addAttribute("candidates", candidates);
+//
+//        return "chap02/hobbies";
+//
+//    }
 
-        List<Integer> candidates = new ArrayList<>();
-        candidates.add(263001);
-        candidates.add(173942);
-        candidates.add(563057);
+    // == 2. ModelAndView 객체 사용
+    @GetMapping("/hobbies2")
+    public ModelAndView hobbies2(){
 
-        model.addAttribute("candidates", candidates);
+        System.out.println("/model/hobbies2 : GET 요청");
 
-        return "chap02/hobbies";
+        // jsp 로 보낼 데이터 생성
+        String name = "냥냥이";
+        // List.of 를 통해 빠른 리스트 생성이 가능하지만, 해당 리스트는 불변 리스트가 됨
+        List<String> hobbieList = List.of("낮잠자기", "캣타워 올라기기", "츄르 먹기", "골골이");
 
+        // jsp 로 보낼 데이터를 ModelAndView에 담기
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("userName", name);
+        modelAndView.addObject("hobbies", hobbieList);
+
+        // view 의 데이터를 따로 담아줌
+        modelAndView.setViewName("chap02/hobbies");
+
+        return  modelAndView;
     }
-
-
 
 
 
