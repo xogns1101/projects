@@ -92,10 +92,72 @@
                 </label>
             </form>
 
+            <hr>
+
+            <form action="/score/remove" method="post" name="scoreForm">
+                <ul class="score-list">
+                    <li class="list-header">
+                        <div class="count">총 학생 수: ${scoreList.size()}명</div>
+                        <div class="sort-link-group">
+                            <div><a href="/score/list?sort=num">학번순</a></div>
+                            <div><a href="/score/list?sort=name">이름순</a></div>
+                            <div><a href="/score/list?sort=avg">평균순</a></div>
+                        </div>
+
+                    </li>
+
+                    <c:forEach var="s" items="${scoreList}">
+                        <li>
+                            # 학번: ${s.stuNum},
+                            이름: <a href="/score/detail?stuNum=${s.stuNum}">${s.maskingName}</a>,
+                            평균: ${s.average}점, 학점: ${s.grade}
+                            <a class="del-btn" href="${s.stuNum}">삭제</a>
+                        </li>
+                    </c:forEach>
+                    <input id="stu-num" type="hidden" name="stuNum">
+                </ul>
+                </form>
         </section>
 
     </div>
     
+
+    <script>
+
+        // 삭제 버튼 클릭 이벤트 처리
+        const $ul = document.querySelector('.score-list');
+
+        $ul.addEventListener('click', e => {
+            
+            // 삭제버튼이 아니라면 이벤트 강제 종료
+            if(!e.target.matches('.del-btn')){
+                return;
+            }
+
+            e.preventDefault(); // a 태그의 고유기능 중지 -> a 태그가 작동이 되면 안됨
+
+            if(confirm('정말 삭제하시겠습니까?')){
+                
+                // a태그에 미리 세팅해 놓은 href에 작성된 학생 번호를 얻어오기
+                const stuNum = e.target.getAttribute('href');
+                
+                // hidden 으로 숨겨진 input 태그의 value 로 stuNum을 얻어오기
+                document.getElementById('stu-num').value = stuNum;
+
+                // 폼 태그 제출
+                document.scoreForm.submit();
+
+            }else{
+                return; // 삭제 취소
+            }
+
+        });
+
+
+
+
+
+    </script>
 
 
 

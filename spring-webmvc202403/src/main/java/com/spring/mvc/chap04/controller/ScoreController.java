@@ -20,6 +20,7 @@ package com.spring.mvc.chap04.controller;
  */
 
 import com.spring.mvc.chap04.dto.ScoreRequestDTO;
+import com.spring.mvc.chap04.dto.ScoreResponseDTO;
 import com.spring.mvc.chap04.entity.Score;
 import com.spring.mvc.chap04.service.ScoreService;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/score")
@@ -47,10 +50,17 @@ public class ScoreController {
 //        this.service = service;
 //    }
 
+    // 성적 목록 조화
     @GetMapping("/list")
-    public String scoreList(){
+    public String list(Model model
+            , @RequestParam(value = "sort", defaultValue = "num") String sort){
+
+        List<ScoreResponseDTO> srdto = service.findAll(sort);
+
+        model.addAttribute("scoreList", srdto);
 
         return "chap04/score-list";
+
     }
 
     @PostMapping("/register")
@@ -59,20 +69,48 @@ public class ScoreController {
 
         System.out.println("dto = " + dto);
 
-        boolean b = service.insertScore(dto);
+        service.insertScore(dto);
 
+        // 등록이 완료되었다면 목록 화면으로 데이터를 전달해서
+        // 목록 화면을 보여주고 싶다
 
-        return "chap04/score-register";
+        /*
+            # forward vs redirect
+            - 포워드는 요청 리소스를 그대로 전달해줌.
+            - 따라서 URL이 변경되지 않고 한번의요청과 한번의 응답만 이뤄짐
+            - forward 할 때는 포워딩할 파일의 경로를 적는다(/views/chap04/score-list.jsp)
+
+            - 리다이렉트는 요청후에 자동응답이 나가고
+              2번째 자동요청이 들어오면서 2번째 응답을 내보냄
+            - 따라서 2번째 요청의 URL로 자동 변경됨
+            - redirect 할 때는 다시 들어왔으면 하는 요청 url 을 적는 것 (/score/list -> 목록 요청)
+         */
+
+        return "redirect:/score/list";
     }
 
+
+    // 삭제
     @PostMapping("/remove")
-    public String scoreRemove(){
+    public String scoreRemove(int stuNum){
 
-        return "chap04/score-remove";
+        System.out.println("stuNum = " + stuNum);
+
+        service.remove(stuNum);
+
+        return "redirect:/score/list";
     }
 
+    // 성적 상세 조회 요청
     @GetMapping("/detail")
-    public String scoreDetail(){
+    public String scoreDetail(int stuNum
+                    , Model model){
+        
+        // chap04/score-detail.jsp
+        // 상세보기 이기 때문에 DTO가 아닌 Entity를 담아서 jsp 로 보내기
+        Score score = service.detail(stuNum);
+
+        model.addAttribute("detail", score);
 
         return "chap04/score-detail";
     }
