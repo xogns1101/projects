@@ -31,6 +31,7 @@ public class BoardResponseDTO {
 
     }
 
+    // 날짜와 시간 포멧터 사용하여 변경하기
     private String makePrettierDateString(LocalDateTime regDate) {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

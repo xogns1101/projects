@@ -9,16 +9,16 @@ import java.util.List;
 @Repository
 public interface BoardRepository {
     
-    // 목록조회
+    // 목록조회 (List<Board>)
     List<Board> findAll();
 
-    // 게시글 상세 조회
+    // 게시글 상세 조회 (Board)
     Board findOne(int boardNo);
 
-    // 게시글 동록
+    // 게시글 동록 (매개변수 전달 받음 해당 entity)
     void save(Board board);
 
-    // 게시글 삭제
+    // 게시글 삭제 (매개변수로 해당 primary key 를 받음)
     void delete(int boardNo);
 
 

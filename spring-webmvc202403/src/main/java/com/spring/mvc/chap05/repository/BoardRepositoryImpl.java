@@ -16,7 +16,9 @@ import java.util.List;
 public class BoardRepositoryImpl implements BoardRepository{
 
     private final JdbcTemplate template;
-
+ 
+    //enum 클래스로 하여 BoardMapper 생성! class 앞에 public 빼야함
+    // implements RowMapper<해당 entity> 할 것!
     class BoardMapper implements RowMapper<Board> {
         @Override
         public Board mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -26,6 +28,7 @@ public class BoardRepositoryImpl implements BoardRepository{
                     rs.getString("title"),
                     rs.getString("content"),
                     rs.getInt("view_count"),
+                    // date 객체는 아래 참고
                     rs.getTimestamp("reg_date").toLocalDateTime(),
                     rs.getString("writer")
 
@@ -35,7 +38,11 @@ public class BoardRepositoryImpl implements BoardRepository{
         }
     }
 
+    // 항상 기억하기! -> SELECT 진행 시에는 query(전체 조회), queryForObject(단일조회) 사용
+    // INSERT, UPDATE, DELETE 는 update 메서드 사용
+    
 
+    // 전체 조회 -> 전체 조회시 query 매서드 진행
     @Override
     public List<Board> findAll() {
 
@@ -45,6 +52,9 @@ public class BoardRepositoryImpl implements BoardRepository{
 
     }
 
+    // primary key 에 해당하는 하나의 행을 조회 -> 단일 조회시 queryForObject 매서드 진행
+    // -> queryForObject를 사용하게 되면 예외발생이 하기 때문에 try/catch 로 감싸주기
+    // catch 엔 null 로 return 할 것!
     @Override
     public Board findOne(int boardNo) {
 
@@ -59,6 +69,7 @@ public class BoardRepositoryImpl implements BoardRepository{
 
     }
 
+    // 매개변수로는 entity 를 주면서 인풋에 들어갈 컬럼값을 sql 로 작성
     @Override
     public void save(Board board) {
 
@@ -72,6 +83,7 @@ public class BoardRepositoryImpl implements BoardRepository{
 
     }
 
+    // 삭제 진행 할때는 해당 sql, primary key 전달하기
     @Override
     public void delete(int boardNo) {
 
