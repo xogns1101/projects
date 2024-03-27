@@ -71,4 +71,20 @@ public class ScoreService {
 
         return score;
     }
+
+    public void update(ScoreRequestDTO dto, int stuNum) {
+        // 1. 클라이 언트가 수정할 데이터를 보냄
+        // -> DB에 저장되어 있는 기존 데이터를 조회해서 수정을 진행
+
+        // 2. 새로운 Score 객체를 생성해서 점수를 세팅하고 총점, 평균, 학점을 계산
+
+        Score changeScore = new Score(dto);
+        changeScore.setStuNum(stuNum);
+
+        repository.update(changeScore);
+
+
+    }
+
+
 }

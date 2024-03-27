@@ -108,12 +108,51 @@ public class ScoreController {
         
         // chap04/score-detail.jsp
         // 상세보기 이기 때문에 DTO가 아닌 Entity를 담아서 jsp 로 보내기
-        Score score = service.detail(stuNum);
+//        Score score = service.detail(stuNum);
+//
+//        model.addAttribute("detail", score);
 
-        model.addAttribute("detail", score);
+        // 메서드 호출
+        retrieve(stuNum, model);
 
         return "chap04/score-detail";
     }
+
+    // 수정페이지로 이동 요청
+    @GetMapping("/modify")
+    public String scoreModify(int stuNum, Model model){
+        System.out.println("/score/modify : GET!");
+
+        retrieve(stuNum, model);
+
+        return "chap04/score-modify";
+    }
+
+    @PostMapping("/modify")
+    public String scoreModify(ScoreRequestDTO dto
+                        , int stuNum){
+
+        // 서비스 , 레파지토리 계층과 연계하여 update 처리 진행
+        // 수정이 완료된 후 사용자에게 응답할 페이지는 
+        // 최신 수정 내용이 완료된 detail 페이지로 이동 - redirect
+
+        service.update(dto, stuNum);
+
+
+        return "redirect:/score/detail?stuNum=" + stuNum;
+
+
+    }
+
+
+
+    private void retrieve(int stuNum, Model model) {
+        Score score = service.detail(stuNum);
+        model.addAttribute("detail", score);
+    }
+
+
+
 
 
 
