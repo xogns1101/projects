@@ -63,7 +63,7 @@ public class BoardRepositoryImpl implements BoardRepository{
     public void save(Board board) {
 
         String sql = "INSERT INTO tbl_board " +
-                "(title, content, writer)" +
+                " (title, content, writer)" +
                 "VALUES(?, ?, ?)";
 
         template.update(sql, board.getTitle(),

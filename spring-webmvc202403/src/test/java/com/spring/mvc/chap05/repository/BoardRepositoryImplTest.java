@@ -1,6 +1,5 @@
 package com.spring.mvc.chap05.repository;
 
-import com.spring.mvc.chap04.entity.Score;
 import com.spring.mvc.chap05.entity.Board;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -26,7 +25,7 @@ class BoardRepositoryImplTest {
         // 값을 붙여서 INSERT 붙히기
         for (int i = 1; i <= 300; i++) {
 
-            Board board = new Board();
+            Board board = new Board(dto);
             board.setWriter("김테스트" + i);
             board.setTitle("테스트 제목 " + i);
             board.setContent("테스트 내용 " + i);
