@@ -21,6 +21,9 @@ public interface BoardRepository {
     // 게시글 삭제 (매개변수로 해당 primary key 를 받음)
     void delete(int boardNo);
 
+    // 조회수처리
+    void updateViewCount(int bno);
+
 
     // 게시글 수정
     

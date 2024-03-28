@@ -1,4 +1,4 @@
-package com.spring.mvc.chap05.dto;
+package com.spring.mvc.chap05.dto.response;
 
 import com.spring.mvc.chap05.entity.Board;
 import lombok.EqualsAndHashCode;
@@ -32,7 +32,7 @@ public class BoardResponseDTO {
     }
 
     // 날짜와 시간 포멧터 사용하여 변경하기
-    private String makePrettierDateString(LocalDateTime regDate) {
+    public static String makePrettierDateString(LocalDateTime regDate) {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
