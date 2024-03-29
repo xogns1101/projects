@@ -25,7 +25,7 @@ class BoardRepositoryImplTest {
         // 값을 붙여서 INSERT 붙히기
         for (int i = 1; i <= 300; i++) {
 
-            Board board = new Board(dto);
+            Board board = new Board();
             board.setWriter("김테스트" + i);
             board.setTitle("테스트 제목 " + i);
             board.setContent("테스트 내용 " + i);
