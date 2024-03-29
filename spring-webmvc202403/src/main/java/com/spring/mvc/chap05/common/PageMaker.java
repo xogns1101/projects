@@ -42,7 +42,7 @@ public class PageMaker {
         // 찐막 페이지를 먼저 구하기
         this.finalPage = (int) Math.ceil((double) totalCount / page.getAmount());
 
-               // 마지막 페이지 구간에서 end값을 finalPage 값으로 변경
+        // 마지막 페이지 구간에서 end값을 finalPage 값으로 변경
         if(this.finalPage < this.end){
             this.end = this.finalPage;
         }
