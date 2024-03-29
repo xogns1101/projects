@@ -1,6 +1,6 @@
 package com.spring.mvc.chap05.service;
 
-import com.spring.mvc.chap05.common.Page;
+import com.spring.mvc.chap05.common.Search;
 import com.spring.mvc.chap05.dto.response.BoardDetailResponseDTO;
 import com.spring.mvc.chap05.dto.response.BoardResponseDTO;
 import com.spring.mvc.chap05.dto.request.BoardWriteRequestDTO;
@@ -30,7 +30,7 @@ public class BoardService {
     }
 
     // repository 로부터 전달 받은 entitu list 를 DTO list를 컨트롤러에게 반환
-    public List<BoardResponseDTO> getList(Page page) {
+    public List<BoardResponseDTO> getList(Search page) {
 
         List<BoardResponseDTO> dtoList = new ArrayList<>();
         List<Board> boardList = mapper.findAll(page);
@@ -64,9 +64,9 @@ public class BoardService {
 
     }
 
-    public int getCount() {
+    public int getCount(Search page) {
 
-        return mapper.getCount();
+        return mapper.getCount(page);
 
     }
 }

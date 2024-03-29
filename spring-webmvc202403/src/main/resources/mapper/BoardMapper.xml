@@ -5,6 +5,27 @@
 <!-- namespace 에는 파일과 연동될 인터페이스의 전체 경로
     (패키지명 포함 클래스명)를 적는다-->
 <mapper namespace="com.spring.mvc.chap05.mapper.BoardMapper">
+
+    <sql id="search">
+        <if test="type == 'title'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+
+        <if test="type == 'content'">
+            WHERE content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+
+        <if test="type == 'writer'">
+            WHERE writer LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+
+        <if test="type == 'tc'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
+            OR content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+    </sql>
+
+
     <!-- 구현고자 하는 인터페이스에 명세된 추상 메서드별로 SQL 을 작성 -->
     <!-- id에는 추상메서드 이름을 적용 -->
     <!-- SQL 작성할 때 값을 전달하는 방법은
@@ -56,6 +77,7 @@
             *
         FROM
             tbl_board
+        <include refid="search"/>
         ORDER BY
             board_no
         DESC
@@ -80,7 +102,7 @@
             COUNT(1)
         FROM
             tbl_board
-
+        <include refid="search"/>
     </select>
 
 
