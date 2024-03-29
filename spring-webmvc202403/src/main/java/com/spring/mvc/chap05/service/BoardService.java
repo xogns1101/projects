@@ -20,6 +20,7 @@ public class BoardService {
 
     private final BoardMapper mapper; // mybatis가 우리가 만든 xml을 클래스로 변환해서 객체를 주입해 줌
 
+
     public void insertBoard(BoardWriteRequestDTO dto) {
 
         Board board = new Board(dto);
@@ -60,6 +61,12 @@ public class BoardService {
     public void delete(int bno) {
 
         mapper.delete(bno);
+
+    }
+
+    public int getCount() {
+
+        return mapper.getCount();
 
     }
 }

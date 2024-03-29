@@ -25,6 +25,9 @@ public interface BoardMapper {
     // 조회수처리
     void updateViewCount(int bno);
 
+    // 총 게시물의 개수 리턴
+    int getCount();
+
 
     // 게시글 수정
 
