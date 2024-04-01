@@ -271,6 +271,98 @@
 
 </div>
 
+<script>
+
+    // 댓글과 관련된 요청 url 을 전역 변수화
+    const URL = '/api/v1/replies'; 
+
+    // 게시글 번호를 전역 변수화 시킴
+    const bno = '${b.boardNo}';
+
+    // 서버에 실시간으로 비동기 통신을 해서 JSON을 받아오는 함수
+    function fetchGetReplies(){
+        // fetch 함수를 통해 비동기 통신 진행할 때 GET 요청에 관련한 객체를 따로 전달하지 않는다
+        // method를 get이라고 얘기하지 않고, 데이터 전달 시에는 URL에 포함시켜서 전달
+        // 자바스크립트 문자열 안에 ${}를 쓰면 el로 인식, 템플릿 리터럴 문자를 쓰기 싶은면 앞에 \ 를 붙이고 사용
+        fetch(`\${URL}/\${bno}`)
+
+
+    }
+
+
+    const $addBtn = document.getElementById('replyAddBtn');
+    
+    $addBtn.addEventListener('click', e => {
+
+        const $replyText = document.getElementById('newReplyText');// 댓글 내용
+        const $replyWriter = document.getElementById('newReplyWriter');// 댓글 작성자
+
+        // 공백이 제거된 값을 얻음
+        const textVal = $replyText.value.trim();
+        const writerVal = $replyWriter.value.trim();
+
+        // 사용자 입력값 검증
+        if(textVal === ''){
+            alert('댓글 내용은 필수 입니다.');
+            return;
+        }else if(writerVal === ''){
+            alert('댓글 작성자는 필수 입니다.');
+            return;
+        }else if(writerVal.length < 2 || writerVal.length > 8){
+            alert('댓글 작성자는 2글자에서 8글자 사이로 작성하세요');
+            return;
+        }
+
+        // 서버로 보낼 데이터 준비
+        const payload = {
+            text : textVal,
+            writer : writerVal,
+            bno : bno
+        };
+
+        // 요청 방식 및 데이터르 전달할 정보 객체 만들기(POST)
+        const requestInfo = 
+        {
+            method : 'POST',
+            headers : {
+                'content-type' : 'application/json'
+            },
+            body : JSON.stringify(payload) // js 객체를 JSON으로 변환해서 body에 추가
+        }
+
+        //서버에 POST 요청 보내기
+        fetch(URL, requestInfo)
+            // then(callbackFn) -> 비동기 통신의 결과를 확인하기 위해 then과 콜백함수 전달 
+            // 콜백함수의 매개변수로 응답정보가 담긴 Response 객체가 전달되고,
+            // Response 객체에서 json 데이터를 꺼내고 싶으면 json(), 단순 텍스트라면 text()를 사용
+            .then(res => res.text())
+            .then(data => {
+                console.log('응답 성공! ' + data);
+                // 댓글 작성자 input 과 댓글 내용 text를 지워주기
+                $replyText.value = '';
+                $replyWriter.value = '';
+
+                // 댓글 목록 비동기 요청이 들어가야 한다
+                // 따로 함수로 빼 주겠습니다.(등록 이후 뿐만 아니라 게시글 상세보기에 처음 들어왔을 때도 호출이 되어야 하니까)
+
+                fetchGetReplies();
+
+            });
+
+
+
+    });
+
+
+
+
+
+
+
+
+
+
+</script>
 
 
 
