@@ -335,7 +335,16 @@
             // then(callbackFn) -> 비동기 통신의 결과를 확인하기 위해 then과 콜백함수 전달 
             // 콜백함수의 매개변수로 응답정보가 담긴 Response 객체가 전달되고,
             // Response 객체에서 json 데이터를 꺼내고 싶으면 json(), 단순 텍스트라면 text()를 사용
-            .then(res => res.text())
+            .then(res => {
+                    console.log(res.status); // 서버에서 전달한 응답 상태 코드
+                    if (res.status === 200) {
+                        alert('댓글이 정상 등록되었습니다.');
+                        return res.text();
+                    } else {
+                        alert('입력값에 문제가 있습니다! 입력값을 다시 확인해 보세요!');
+                        return res.text();
+                    }
+                })
             .then(data => {
                 console.log('응답 성공! ' + data);
                 // 댓글 작성자 input 과 댓글 내용 text를 지워주기
