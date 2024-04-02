@@ -2,7 +2,6 @@ package com.spring.mvc.chap05.mapper;
 
 import com.spring.mvc.chap05.entity.Board;
 import com.spring.mvc.chap05.entity.Reply;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +61,7 @@ class ReplyMapperTest {
         int boardNo = 77;
         // 77번 게시물의 모든 댓글 찾기
         // when
-        List<Reply> replyList = replyMapper.findAll(boardNo);
+        List<Reply> replyList = replyMapper.findAll(boardNo, page);
         // 댓글의 갯수가 7인것을 단언하기
         // then
         assertEquals(7, replyList.size());
