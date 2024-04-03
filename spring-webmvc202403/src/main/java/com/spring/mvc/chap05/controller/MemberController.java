@@ -5,6 +5,7 @@ import com.spring.mvc.chap05.dto.request.SignUpRequestDTO;
 import com.spring.mvc.chap05.service.LoginResult;
 import com.spring.mvc.chap05.service.MemberService;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -75,7 +76,8 @@ public class MemberController {
                          // 첫번째 응답이 나가는 순간 모델은 소멸함.
                          //(Model 의 생명주기는 한 번의 요청과 응답 사이에서만 유효)
                 , RedirectAttributes ra
-                , HttpServletResponse response){
+                , HttpServletResponse response
+                , HttpServletRequest request){
 
         
         System.out.println("/members/sign-in : POST");
@@ -90,7 +92,11 @@ public class MemberController {
         if(result == LoginResult.SUCCESS){ // 로그인 성공
 
             // 로그인을 했다는 정보를 계속 유지하기 위한 수단으로 쿠키 사용
-            mekeLoginCookie(dto, response);
+//            mekeLoginCookie(dto, response);
+
+            // 세션으로 로그인 유지
+            memberService.maintainLoginState(request.getSession(), dto.getAccount());
+
 
             return "redirect:/board/list";
         }
@@ -117,6 +123,13 @@ public class MemberController {
 
 
     }
+
+
+
+
+
+
+
 
 
 }
