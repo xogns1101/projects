@@ -32,7 +32,7 @@ public class Board {
         this.writer = dto.getWriter();
         this.title = dto.getTitle();
         this.content = dto.getContent();
-       // this.regDate = LocalDateTime.now();
+       this.regDate = LocalDateTime.now();
     }
 
 
