@@ -7,6 +7,7 @@ import com.spring.mvc.chap05.service.MemberService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -123,6 +124,7 @@ public class MemberController {
 
 
     }
+
 
 
 
