@@ -63,14 +63,14 @@ class MemberMapperTest {
     }
 
     @Test
-    @DisplayName("이메일 abc1234@naver.com 일 경우 중복확인 값이 false 여야 한다")
+    @DisplayName("이메일 abc@naver.com 일 경우 중복확인 값이 false 여야 한다")
     void duplicateEmailTest() {
         // given
         String email = "abc@naver.com";
         // when
-        boolean e = memberMapper.isDuplicate("type", email);
+        boolean e = memberMapper.isDuplicate("email", email);
         // then
-        assertTrue(e);
+        assertFalse(e);
     }
 
 }
