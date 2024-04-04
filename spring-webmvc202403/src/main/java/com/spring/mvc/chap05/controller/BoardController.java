@@ -7,6 +7,7 @@ import com.spring.mvc.chap05.dto.response.BoardDetailResponseDTO;
 import com.spring.mvc.chap05.dto.response.BoardResponseDTO;
 import com.spring.mvc.chap05.dto.request.BoardWriteRequestDTO;
 import com.spring.mvc.chap05.service.BoardService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,9 +61,10 @@ public class BoardController {
     // BoardWriteRequesDTO 을 활용하여 파라미터 처리 -> dto.request 패키지 생성
     // 등록 완료 후에는 목록 조회 요청이 다시 들어오게끔 처리
     @PostMapping("/write")
-    public String write(BoardWriteRequestDTO dto){
+    public String write(BoardWriteRequestDTO dto
+                    , HttpSession session){
 
-        service.insertBoard(dto);
+        service.insertBoard(dto, session);
 
 
         return "redirect:/board/list";

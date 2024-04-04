@@ -6,6 +6,7 @@ import com.spring.mvc.chap05.dto.response.BoardResponseDTO;
 import com.spring.mvc.chap05.dto.request.BoardWriteRequestDTO;
 import com.spring.mvc.chap05.entity.Board;
 import com.spring.mvc.chap05.mapper.BoardMapper;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class BoardService {
     private final BoardMapper mapper; // mybatis가 우리가 만든 xml을 클래스로 변환해서 객체를 주입해 줌
 
 
-    public void insertBoard(BoardWriteRequestDTO dto) {
+    public void insertBoard(BoardWriteRequestDTO dto, HttpSession session) {
 
         Board board = new Board(dto);
 
@@ -69,4 +70,6 @@ public class BoardService {
         return mapper.getCount(page);
 
     }
+
+
 }
