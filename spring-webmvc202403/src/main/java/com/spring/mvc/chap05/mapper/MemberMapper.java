@@ -30,4 +30,7 @@ public interface MemberMapper {
     void saveAutoLogin(AutoLoginDTO build);
 
 
+    // 쿠키값(세션 아이디)으로 회원 정보를 조회
+    Member findMemberByCookie(String sessionId);
+    
 }

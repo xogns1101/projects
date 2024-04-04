@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 
 import static com.spring.mvc.chap05.service.LoginResult.*;
 import static com.spring.mvc.util.LoginUtils.AUTO_LOGIN_KEY;
+import static com.spring.mvc.util.LoginUtils.LOGIN_KEY;
 
 @Service
 @RequiredArgsConstructor
@@ -123,7 +124,7 @@ public class MemberService {
                 .build();
         
         // 세션에 로그인한 회원 정보를 저장
-        session.setAttribute(LoginUtils.LOGIN_KEY, dto);
+        session.setAttribute(LOGIN_KEY, dto);
         
         // 세션 수명 설정
         session.setMaxInactiveInterval(60 * 60); // 1시간
