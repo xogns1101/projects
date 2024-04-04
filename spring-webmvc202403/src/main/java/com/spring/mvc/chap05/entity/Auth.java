@@ -9,7 +9,7 @@ import lombok.ToString;
 public enum Auth {
 
     COMMON("일반회원", 1),
-    ADMIN("관리자 회원", 2);
+    ADMIN("관리자회원", 2);
 
     private String description; // 권한 설명
     private  int authNumber; // 권한 번호

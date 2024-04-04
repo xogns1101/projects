@@ -6,6 +6,7 @@ import com.spring.mvc.chap05.dto.response.BoardResponseDTO;
 import com.spring.mvc.chap05.dto.request.BoardWriteRequestDTO;
 import com.spring.mvc.chap05.entity.Board;
 import com.spring.mvc.chap05.mapper.BoardMapper;
+import com.spring.mvc.util.LoginUtils;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,9 @@ public class BoardService {
     public void insertBoard(BoardWriteRequestDTO dto, HttpSession session) {
 
         Board board = new Board(dto);
+        // 이제는 화면단에서 작성자가 전달 되지 않음
+        // 세션에서 현재 로그인 중인 사용자의 아이디를 얻어와서 따로 세팅
+        board.setWriter(LoginUtils.getCurrentLoginMemberAccount(session));
 
         mapper.save(board);
 
