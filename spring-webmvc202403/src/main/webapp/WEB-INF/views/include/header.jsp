@@ -11,15 +11,18 @@
         </h1>
 
         <!-- 프로필 사진 -->
-        <div class="profile-box">
 
+            <div class="profile-box">
 
-                <img src="/assets/img/anonymous.jpg" alt="프사">
+                <c:if test="${login == null || login.profile == null}">
+                    <img src="/assets/img/anonymous.jpg" alt="프사">
+                </c:if>
 
-
-        </div>
-
-
+                <c:if test="${login != null && login.profile != null}">
+                    <img src="/display${login.profile}" alt="프사">
+                </c:if>
+            </div>
+       
         <h2 class="intro-text">
             Welcome ${login == null ? '' : login.name}
         </h2>
@@ -54,3 +57,17 @@
 
 </header>
 <!-- //header -->
+
+<script>
+
+    const $profileBox = document.querySelector('.profile-box');
+
+    $profileBox.addEventListener('click', e => {
+        
+        location.href='/display/download${login.profile}';
+    
+    })
+
+
+
+</script>
