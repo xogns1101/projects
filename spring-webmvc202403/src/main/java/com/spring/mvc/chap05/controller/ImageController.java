@@ -102,18 +102,10 @@ public class ImageController {
         try {
             headers.add("Content-Disposition", "attachment; filename=" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") );
             result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        }  catch (Exception e) {
             e.printStackTrace();
             result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-//        try {
-//
-//        } catch (IOException e) {
-//
-//        }
 
         return result;
 
