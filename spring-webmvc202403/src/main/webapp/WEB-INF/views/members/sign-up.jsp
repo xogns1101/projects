@@ -399,7 +399,7 @@
   
     // 파일 리더 객체가 로딩이 끝났다면 이벤트를 발생시켜서
     // img 태그에 이미지를 세팅
-    reader.onload = e =>{
+    reader.onloadend = e =>{
 
       const $img = document.querySelector('.thumbnail-box img');
       $img.setAttribute('src', reader.result);
