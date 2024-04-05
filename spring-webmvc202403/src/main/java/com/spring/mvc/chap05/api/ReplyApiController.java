@@ -7,7 +7,9 @@ import com.spring.mvc.chap05.dto.request.ReplyPostRequestDTO;
 import com.spring.mvc.chap05.dto.response.ReplyDetailResponseDTO;
 import com.spring.mvc.chap05.dto.response.ReplyListResponseDTO;
 import com.spring.mvc.chap05.service.ReplyService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -34,6 +36,7 @@ import java.util.List;
 @RestController // @Controller  + 메서드 마다 @ResponseBody 를 붙인것과 동일한 효과
 @RequestMapping("/api/v1/replies")
 @RequiredArgsConstructor
+@Slf4j
 public class ReplyApiController {
 
     private final ReplyService replyService;
@@ -65,7 +68,8 @@ public class ReplyApiController {
     @PostMapping
    // @ResponseBody
     public ResponseEntity<?> create(@Validated @RequestBody ReplyPostRequestDTO dto
-                    , BindingResult result){ // 검증 결과 메세지를 가진 객체
+                    , BindingResult result // 검증 결과 메세지를 가진 객체
+                    , HttpSession session){
 
         // 입력값 검증에 걸리면 400번 status 와 함께 메세지를 클라이언트로 전송
         if(result.hasErrors()){
@@ -77,10 +81,9 @@ public class ReplyApiController {
         }
 
 
-        System.out.println("/api/v1/replies : POST");
-        System.out.println("dto = " + dto);
+        log.info("/api/v1/replies : POST , dto = {}", dto);
 
-        replyService.register(dto);
+        replyService.register(dto, session);
 
         return ResponseEntity.ok("success");
     }

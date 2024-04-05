@@ -172,9 +172,16 @@
     <div id="replies" class="row">
         <div class="offset-md-1 col-md-10">
             <!-- 댓글 쓰기 영역 -->
+
             <div class="card">
                 <div class="card-body">
 
+                    <c:if test="${login == null}">
+                        <a href="/members/sign-in">댓글은 로그인 후에 작성 할 수 있습니다!</a>
+                    </c:if>
+
+
+                    <c:if test="${login != null}">
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="form-group">
@@ -197,13 +204,14 @@
                                     <label for="newReplyWriter" hidden>댓글 작성자</label>
                                     <input id="newReplyWriter" name="replyWriter" type="text"
                                            class="form-control" placeholder="작성자 이름"
-                                           style="margin-bottom: 6px;">
+                                           style="margin-bottom: 6px;" value="${login.account}">
                                     <button id="replyAddBtn" type="button"
                                             class="btn btn-dark form-control">등록
                                     </button>
                                 </div>
                             </div>
                         </div>
+                    </c:if>
 
                 </div>
             </div> <!-- end reply write -->
@@ -279,6 +287,12 @@
     // 게시글 번호를 전역 변수화 시킴
     const bno = '${b.boardNo}';
 
+    // 로그인한 사람 계정
+    const currentAccount = '${login.account}'; 
+
+    // 로그인한 사람 권한
+    const auth = '${login.auth}';
+
     // 화면에 페이지 버튼을 렌더링 하는 함수
     // 매개변수 선언부에 처음부터 디스트럭처링해서 받을 수 있음
     function renderPage({begin, end, prev, next, page, finalPage}){
@@ -333,7 +347,7 @@
             // reply 가 자바의 ReplyDetailResponseDTO 이다
             for(let reply of replies){
                 // 객체 디스트럭처링
-                const {rno, writer, text, regDate, updateDate} = reply;
+                const {rno, writer, text, regDate, updateDate, account} = reply;
 
                     tag += `<div id='replyContent' class='card-body' data-replyId='\${rno}'>
                     <div class='row user-block'>
@@ -349,10 +363,12 @@
                     <div class='col-md-3 text-right'>
                 `;    
 
-                tag += `
+                if(auth === 'ADMIN' || currentAccount === account){
+                    tag += `
                     <a id='replyModBtn' class='btn btn-sm btn-outline-dark' data-bs-toggle='modal' data-bs-target='#replyModifyModal'>수정</a>&nbsp;
                     <a id='replyDelBtn' class='btn btn-sm btn-outline-dark' href='#'>삭제</a>
                 `;
+                }
 
                 tag += ` </div>
                         </div>
@@ -424,7 +440,8 @@
     // 댓글 등록 부분
     const $addBtn = document.getElementById('replyAddBtn');
     
-    $addBtn.addEventListener('click', e => {
+    if($addBtn){
+        $addBtn.addEventListener('click', e => {
 
         const $replyText = document.getElementById('newReplyText');// 댓글 내용
         const $replyWriter = document.getElementById('newReplyWriter');// 댓글 작성자
@@ -481,7 +498,8 @@
                 console.log('응답 성공! ' + data);
                 // 댓글 작성자 input 과 댓글 내용 text를 지워주기
                 $replyText.value = '';
-                $replyWriter.value = '';
+                // 회원가입 처리가 되었기 때문에 이제 작성자자리는 안비워도 된다!
+               // $replyWriter.value = '';
 
                 // 댓글 목록 비동기 요청이 들어가야 한다
                 // 따로 함수로 빼 주겠습니다.(등록 이후 뿐만 아니라 게시글 상세보기에 처음 들어왔을 때도 호출이 되어야 하니까)
@@ -492,7 +510,8 @@
 
 
 
-    });
+        });
+    }
     
     // 댓글 삭제 + 수정모드 진입 이벤트 핸들러 등록 및 처리함수
     function makeReplyRemoveClickHandler(){

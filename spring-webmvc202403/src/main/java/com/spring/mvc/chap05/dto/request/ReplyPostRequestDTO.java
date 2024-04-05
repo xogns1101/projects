@@ -21,13 +21,26 @@ public class ReplyPostRequestDTO {
 
     @NotBlank
     @Size(min = 2, max = 8)
-    private String writer;  // 댓글 작성저
+    private String writer;  // 댓글 작성자
 
     @NotNull
     private int bno; // 원븐 글번호
 
+//    @NotBlank
+//    @Size(min = 2, max = 6)
+//    private String account; // 작성자 아이디
+
     // dto를 entity로 바꾸는 변환 메서드
     public Reply toEntity(){
+
+//        ALTER TABLE tbl_reply
+//        ADD account VARCHAR(50);
+//
+//        ALTER TABLE tbl_reply
+//        ADD CONSTRAINT fk_reply_account
+//        FOREIGN KEY (account)
+//                REFERENCES tbl_member (account)
+//        ON DELETE CASCADE;
 
         return Reply.builder()
                 .replyText(this.text)

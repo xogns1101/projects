@@ -10,12 +10,14 @@
         tbl_reply
         (reply_text
         , reply_writer
-        , board_no)
+        , board_no
+        , account)
         VALUES
         (
         #{replyText}
         , #{replyWriter}
         , #{boardNo}
+        , #{account}
         )
 
     </insert>

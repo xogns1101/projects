@@ -230,7 +230,8 @@
     $targetCard?.classList.remove('card-hover');
 
     const $delBtn = e.target.closest('.card-wrapper')?.querySelector('.del-btn');
-    $delBtn.style.opacity = '0';
+    // delBtn 이 있다면 스타일 적용
+    if($delBtn) $delBtn.style.opacity = '0';
   }
 
 
@@ -242,7 +243,8 @@
     $targetCard?.classList.add('card-hover');
 
     const $delBtn = e.target.closest('.card-wrapper')?.querySelector('.del-btn');
-    $delBtn.style.opacity = '1';
+    // delBtn 이 있다면 스타일 적용
+    if($delBtn) $delBtn.style.opacity = '1';
   }
 
   $cardContainer.onmousedown = e => {
@@ -259,9 +261,16 @@
   $cardContainer.addEventListener('mouseout', removeHover);
 
   // write button event
-  document.querySelector('.add-btn').onclick = e => {
+  // addWriterBtn 버튼이 존재하면 이벤트 발생
+  const $addWriterBtn = document.querySelector('.add-btn');
+  if($addWriterBtn){
+
+    $addWriterBtn.onclick = e => {
     window.location.href = '/board/write';
+
   };
+
+  }
 
   // 사용자가 현재 머물고 있는 페이지 버튼에 active 스타일 부여
   function appendPageActive(){
