@@ -70,6 +70,7 @@ public class UploadCotroller {
         // 3. 첨부파일을 파일 객체로 생성
         File uploadFile = new File(rootPath, fileName + fileExtension);
 
+        // 예외처리가 발생하여 try / catch 로 감싸기 
         try {
             // 4. 지정한 경로로 파일을 전송
             file.transferTo(uploadFile);
