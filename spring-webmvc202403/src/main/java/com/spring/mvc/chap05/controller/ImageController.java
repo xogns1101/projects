@@ -100,7 +100,8 @@ public class ImageController {
         headers.add("Content-Disposition", "attachment; filename" + fileName);
 
         try {
-            headers.add("Content-Disposition", "attachment; filename=" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") );
+            headers.add("Content-Disposition", "attachment; filename="
+                    + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") );
             result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
         }  catch (Exception e) {
             e.printStackTrace();
