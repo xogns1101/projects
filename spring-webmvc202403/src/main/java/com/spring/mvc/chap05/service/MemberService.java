@@ -8,17 +8,18 @@ import com.spring.mvc.chap05.entity.Member;
 import com.spring.mvc.chap05.mapper.MemberMapper;
 import com.spring.mvc.util.LoginUtils;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 import java.time.LocalDateTime;
 
 import static com.spring.mvc.chap05.service.LoginResult.*;
-import static com.spring.mvc.util.LoginUtils.AUTO_LOGIN_KEY;
-import static com.spring.mvc.util.LoginUtils.LOGIN_KEY;
+import static com.spring.mvc.util.LoginUtils.*;
 
 @Service
 @RequiredArgsConstructor
@@ -129,6 +130,32 @@ public class MemberService {
         // 세션 수명 설정
         session.setMaxInactiveInterval(60 * 60); // 1시간
 
+
+
+    }
+
+    public void autoLoginClear(HttpServletRequest request, HttpServletResponse response) {
+
+        // 1. 자동 로그인 쿠키를 가져오기
+        Cookie cookie = WebUtils.getCookie(request, AUTO_LOGIN_KEY);
+
+        // 2. 쿠키를 삭제하기
+        // -> 쿠키의 수명을 0초로 설정하여 다시 클라이언트에 전송 ->  자동 소멸
+        if(cookie != null){
+            cookie.setMaxAge(0);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+        }
+        
+        // 3. 데이터 베이스에서도 세션아이디와 만료시간을 제거하자
+        memberMapper.saveAutoLogin(
+                AutoLoginDTO.builder()
+                        .sessionID("none") // 세션 아이디 지우기
+                        .limitTime(LocalDateTime.now()) // 로그아웃한 현재 날짜
+                        // 로그인 중이였던 사용자 아이디
+                        .account(getCurrentLoginMemberAccount(request.getSession()))
+                        .build()
+        );
 
 
     }

@@ -70,7 +70,8 @@
                                    ${b.regDate} </div>
                             <div class="view">
                                 <i class="fas fa-eye"></i>
-                                <span class="view-count">${b.viewCount}</span>
+                                <span class="view-count">${b.viewCount}
+                                </span>
                             </div>
                         </div>
                     </div>
