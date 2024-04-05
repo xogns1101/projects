@@ -7,9 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.spring.mvc.chap05.service.LoginResult.*;
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class MemberServiceTest {
 
@@ -27,7 +24,7 @@ class MemberServiceTest {
                 .email("hong@naver.com")
                 .build();
         // when
-        memberService.join(dto);
+        memberService.join(dto, savePath);
         // then
     }
 
