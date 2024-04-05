@@ -97,7 +97,7 @@ public class ImageController {
         //Header.add("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8").replaceAll("\\+", " "));
 
         // 여기서 fileName 다운로드를 받는 파일 명을 뜻함
-         headers.add("Content-Disposition", "attachment; filename" + fileName);
+        headers.add("Content-Disposition", "attachment; filename" + fileName);
 
         try {
             headers.add("Content-Disposition", "attachment; filename=" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") );
