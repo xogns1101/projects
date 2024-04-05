@@ -12,7 +12,7 @@ import lombok.*;
 public class ReplyModifyRequestDto {
 
     @NotNull
-    private int rno; // 수정할 댓글 내용
+    private int rno; // 수정할 댓글 번호
 
     @NotBlank
     private String text; // 수정할 댓글 내용
