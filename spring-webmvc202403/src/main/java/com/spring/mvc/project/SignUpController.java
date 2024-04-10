@@ -1,26 +1,19 @@
-package com.camping.project.signup;
+package com.spring.mvc.project;
 
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/members")
+@Slf4j
+@RequestMapping("/user")
 public class SignUpController {
 
-
         @GetMapping("/sign-up")
-      //  @ResponseBody
-        public void signUp(){
+        public String signUp(){
 
+            return "user/sign-up";
         }
-
-
-
-
-
-
 
 }
