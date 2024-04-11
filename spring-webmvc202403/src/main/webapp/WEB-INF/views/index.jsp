@@ -4,9 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>메인 페이지</title>
+
+    <%@ include file="include/static-head.jsp" %>
+
 </head>
 <body>
 
+    <%@ include file="include/static-head.jsp" %>
+
+<%--
     <%
         String userName = "방문자";
 
@@ -23,9 +29,15 @@
 
     %>
 
+    --%>
 
+    <c:if test="${login == null}">
+        <h1>방문자님 안녕하세요!</h1>
+    </c:if>
 
-        <h1><%= userName %>님 안녕하세요!</h1>
+    <c:if test="${login != null}">
+            <h1>${login.name}(${login.account})님 안녕하세요!</h1>
+    </c:if>
 
 </body>
 </html>

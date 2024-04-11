@@ -27,6 +27,7 @@
         <mapper resource="mapper/ReplyMapper.xml" />
         <mapper resource="mapper/MemberMapper.xml" />
         <mapper resource="mapper/WeatherMapper.xml" />
+        <mapper resource="mapper/UserMapper.xml" />
     </mappers>
 
 
