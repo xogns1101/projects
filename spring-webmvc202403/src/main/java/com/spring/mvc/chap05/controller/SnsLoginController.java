@@ -51,7 +51,7 @@ public class SnsLoginController {
         snsLoginService.kakaoLogin(params, session);
 
         // 로그인 처리가 모두 완료 되면 홈 화면으로 보내기
-        return "redirect:/";
+        return "redirect:/board/list";
 
     }
 

@@ -200,7 +200,17 @@
                                         </c:if>
 
                                         <c:if test="${login.profile != null}">
-                                        <img src="/display${login.profile}" alt="프사">
+                                            <c:choose>
+                                                <c:when test="${login.loginMethod == 'COMMON'}">
+                                                    <img src="/display${login.profile}" alt="프사">
+                                                </c:when>
+
+                                                <c:otherwise>
+                                                    <img src="${login.profile}" alt="프사">
+                                                </c:otherwise>
+                                            </c:choose>
+
+
                                         </c:if>
                                     </div>
 
@@ -297,6 +307,10 @@
     // 로그인한 사람 권한
     const auth = '${login.auth}';
 
+    // 로그인 방식
+    // const loginMethod = '${login.loginMethod}';
+    // console.log('loginMethod : ' , loginMethod);
+
     // 화면에 페이지 버튼을 렌더링 하는 함수
     // 매개변수 선언부에 처음부터 디스트럭처링해서 받을 수 있음
     function renderPage({begin, end, prev, next, page, finalPage}){
@@ -351,15 +365,28 @@
             // reply 가 자바의 ReplyDetailResponseDTO 이다
             for(let reply of replies){
                 // 객체 디스트럭처링
-                const {rno, writer, text, regDate, updateDate, account, profile} = reply;
+                const {rno, writer, text, regDate, updateDate, account, profile, loginMethod} = reply;
 
                 tag += `<div id='replyContent' class='card-body' data-replyId='\${rno}'>
                 <div class='row user-block'>
                 <span class='col-md-8'>
                 `;
 
-                tag += (profile ? `<img class='reply-profile' src='/local\${profile}' alt='profile image'>`
-                : `<img class='reply-profile' src='/assets/img/anonymous.jpg' alt='anonymous image'>`); 
+                let profileTag = '';
+                if (profile) {
+                    if (loginMethod.trim() === 'COMMON') {
+                        profileTag = `<img class='reply-profile' src='/local\${profile}' alt='profile image'>`;
+                    } else {
+                        profileTag = `<img class='reply-profile' src='\${profile}' alt='profile image'>`;
+                    }
+                } else {
+                    profileTag = `<img class='reply-profile' src='/assets/img/anonymous.jpg' alt='anonymous image'>`;
+                }
+
+                tag += profileTag;
+
+                // tag += (profile ? `<img class='reply-profile' src='/local\${profile}' alt='profile image'>`
+                // : `<img class='reply-profile' src='/assets/img/anonymous.jpg' alt='anonymous image'>`); 
 
 
 

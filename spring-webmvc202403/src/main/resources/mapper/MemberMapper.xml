@@ -7,21 +7,10 @@
    <!-- 테이블에 DEFAULT로 준 컬럼들을 직접 값을 안줘도 됨 -->
     <insert id="save">
 
-        INSERT INTO
-        tbl_member
-        (account
-        , password
-        , name
-        , email
-        , profile_image)
+        INSERT INTO tbl_member
+        (account, password, name, email, profile_image, login_method)
         VALUES
-        (
-        #{account}
-        , #{password}
-        , #{name}
-        , #{email}
-        , #{profileImage}
-        )
+        (#{account}, #{password}, #{name}, #{email}, #{profileImage}, #{loginMethod})
 
     </insert>
 

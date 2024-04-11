@@ -18,6 +18,8 @@ public class LoginUserResponseDTO {
 
     private String profile;
 
+    private String loginMethod;
+
 
 
 

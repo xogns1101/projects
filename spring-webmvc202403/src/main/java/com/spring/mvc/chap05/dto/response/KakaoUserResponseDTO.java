@@ -20,6 +20,7 @@ public class KakaoUserResponseDTO {
 
     private Properties properties;
 
+    @JsonProperty("kakao_account")
     private KakaoAccount account;
 
     @Setter @Getter @ToString
@@ -33,7 +34,7 @@ public class KakaoUserResponseDTO {
         -> 메모리에 상주 -> 메모리의 누수를 초래.
         */
         
-        private String nickName;
+        private String nickname;
 
         @JsonProperty("profile_image")
         private String profileImage;
@@ -48,7 +49,6 @@ public class KakaoUserResponseDTO {
     @Setter @Getter @ToString
     public static class KakaoAccount{
 
-        @JsonProperty("kakao_account")
         private String email;
 
     }

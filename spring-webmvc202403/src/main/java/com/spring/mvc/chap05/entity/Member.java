@@ -43,5 +43,12 @@ public class Member {
 
     private String profileImage; // 프로필 사진 이미지 경로
 
+    private LoginMethod loginMethod;
+
+    public enum LoginMethod{
+
+        COMMON, KAKAO, GOOGLE, NAVER
+
+    }
 
 }
